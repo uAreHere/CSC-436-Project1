@@ -1,9 +1,13 @@
-import Container from "./components/Container"
-import Header from "./components/Header"
-import Footer from "./components/Footer"
-import Home from "./pages/Home"
-import About from "./pages/About"
-import NotFound from "./pages/NotFound"
+import {Routes, Route} from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from "./components/Container";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import CurrentConversionRates from "./pages/CurrentConversionRates";
+import Conversions from "./components/Conversions";
+
 
 function App() {
   
@@ -12,17 +16,14 @@ return <>
     <Container>
         <Routes>
             <Route index element={<Home/>}></Route>
-            <Route path="/about" element={<About/>}></Route>
+            <Route path="/currentconversionrates" element={<CurrentConversionRates/>}></Route>
+            <Route path="/conversions" element={<Conversions/>}></Route>
             <Route path="*" element={<NotFound/>}></Route>
-            <Route path="/books" element={<Books/>}></Route>
         </Routes>
     </Container>
     <Footer/>
 
-    
-
 </>
-
 }
 
 export default App

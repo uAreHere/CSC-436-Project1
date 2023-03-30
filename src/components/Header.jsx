@@ -1,5 +1,5 @@
 import Container from "./Container"
-import { NavLink } from "react-router-dom";
+import { NavLink as RouterLink} from "react-router-dom";
 
 const Header = () => {
 
@@ -7,11 +7,11 @@ const Header = () => {
         return `${props.isActive ? 'font-bold' : ''} hover:underline hover:text-gray-600 transition duration-300`
     }
 
-    return <Container className="bg-gray-300">
-        <nav className="flex gap-4">
-            <RouterLink className={getClassName} to="/">Home</RouterLink>
-            <RouterLink className={getClassName} to="/about">About</RouterLink>
-            <RouterLink className={getClassName} to="/books">Books</RouterLink>
+    return <Container className="bg-info">
+        <nav className="navbar navbar-expand-md">
+            <RouterLink className="p-3" to="/">24/7 "Coinversions"</RouterLink>
+            <RouterLink className="p-3" to="/currentconversionrates">Current Conversion Rates</RouterLink>
+            <RouterLink className="p-3" to="/conversions">Conversions</RouterLink>
         </nav>
     </Container>
 }
