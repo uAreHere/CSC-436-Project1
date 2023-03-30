@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
-import CurrentConversionRates from "./pages/CurrentConversionRates";
+import CurrentConversionRates from "./components/CurrentConversionRates";
 import Conversions from "./components/Conversions";
 
 

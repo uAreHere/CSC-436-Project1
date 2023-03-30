@@ -1,8 +1,9 @@
 import Container from "./Container"
+import FatherTime from "./FatherTime";
 
 const Footer = () => {
     return <Container>
-        Coming Soon, a Footer!
+        <FatherTime/>
     </Container>
 }
 

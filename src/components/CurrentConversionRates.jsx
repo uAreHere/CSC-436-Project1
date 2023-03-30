@@ -1,4 +1,4 @@
-import Container from "../components/Container";
+import Container from "./Container";
 import { useEffect,useState } from "react";
 
 const CurrentConversionRates = () => {

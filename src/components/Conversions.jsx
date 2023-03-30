@@ -1,10 +1,12 @@
 import {useState, useEffect} from 'react';
+import CurrentConversionRates from './CurrentConversionRates';
 
 const Conversions = () => {
     const [conversionRates, setConversionRates] = useState(null);
     const [selectedCurrency, setSelectedCurrency] = useState("USD");
     const [inputValue, setInputValue] = useState("");
-    const [conversionResult, setConversionResult] = useState(null);
+    const [conversionResults, setConversionResults] = useState(null);
+    const [sortOrder, setSortOrder] = useState('asc');
     const currencies = ["USD", "EUR", "GBP"];
 
     useEffect(() =>{
@@ -25,10 +27,36 @@ const Conversions = () => {
     };
 
     const handleConvertClick = () => {
-        const conversionRate = conversionRates[selectedCurrency].rate_float;
-        const result = inputValue /conversionRate;
-        setConversionResult(result);
+        const results = {};
+        currencies.forEach((currency) => {
+            const conversionRate = conversionRates[currency].rate_float;
+            const result = (inputValue/conversionRate).toFixed(8);
+            results[currency] = result;
+        });
+        setConversionResults(results);
     }
+
+    const handleSortClick = () => {
+        if(sortOrder === 'asc') {
+            setSortOrder('desc');
+        } 
+        else {
+            setSortOrder('asc');
+        }
+    }
+
+    const sortedCurrencies = [];
+    for(let currency in conversionResults) {
+        sortedCurrencies.push([currency, conversionResults[currency]]);
+    }
+    sortedCurrencies.sort((a,b) => {
+        if(sortOrder === 'asc') {
+            return parseFloat(a[1]) - parseFloat(b[1]);
+        }
+        else {
+            return parseFloat(b[1]) - parseFloat(a[1]);
+        }
+    });
 
     if(!conversionRates) {
         return <div>Loading...</div>
@@ -36,21 +64,30 @@ const Conversions = () => {
 
     return (
         <div className="container">
-            <h3>Select a Currency</h3>
-            <select value={selectedCurrency} onChange={handleCurrencyChange}>
+            <div className="p-3">
+            <h3 className="form-label">Select a Currency</h3>
+            <select value={selectedCurrency} onChange={handleCurrencyChange} className="form-control w-25">
                 {currencies.map((currency) =>(
                     <option key={currency} value={currency}>
                         {currency}
                     </option>
                 ))}
             </select>
-            <h3>Enter An Amount</h3>
-            <input type="number" value={inputValue} onChange={handleInputChange}/>
-            <button onClick={handleConvertClick}>Convert!</button>
-            {conversionResult && (
-            <p>
-                {inputValue} {selectedCurrency} = {conversionResult} BTC
-            </p>
+            <h3 className="form-label">Enter An Amount</h3>
+            <input type="number" value={inputValue} onChange={handleInputChange} className="form-control w-25"/>
+            </div>
+            <button onClick={handleConvertClick} className="btn btn-primary">Convert!</button>
+            {conversionResults && (
+               <ul className="list-group w-50 p-3">
+                {sortedCurrencies.map((currency) => (
+                    <li key={currency} className="list-group-item">
+                        {inputValue} {currency} = {conversionResults[currency]} BTC
+                    </li>
+                ))}
+                <div classname="p-3">
+                <button onClick={handleSortClick} className="btn btn-secondary">Sort ({sortOrder === 'asc' ? "ascending":"descending"})</button>
+                </div>
+               </ul>
             )}
         </div>
     );
