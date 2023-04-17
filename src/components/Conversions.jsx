@@ -65,7 +65,7 @@ const Conversions = () => {
     return (
         <div className="container">
             <div className="p-3">
-            <h3 className="form-label">Select a Currency</h3>
+            <label className="form-label">Select a Currency</label>
             <select value={selectedCurrency} onChange={handleCurrencyChange} className="form-control w-25">
                 {currencies.map((currency) =>(
                     <option key={currency} value={currency}>
@@ -73,7 +73,7 @@ const Conversions = () => {
                     </option>
                 ))}
             </select>
-            <h3 className="form-label">Enter An Amount</h3>
+            <label className="form-label">Enter An Amount</label>
             <input type="number" value={inputValue} onChange={handleInputChange} className="form-control w-25"/>
             </div>
             <button onClick={handleConvertClick} className="btn btn-primary">Convert!</button>
